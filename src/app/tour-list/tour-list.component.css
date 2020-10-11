@@ -1,0 +1,28 @@
+.wrapp{
+  margin-top: 30px;
+}
+.tour_card{
+  margin-top: 20px;
+}
+.card_member{
+  position: relative;
+  background-color: #87CEFA;
+}
+.card_member:before {
+  position: absolute;
+  top: 40%;
+  margin-left: -5%;
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-right: 40px solid #87CEFA;
+  border-bottom: 20px solid transparent;
+}
+a{
+  cursor: pointer;
+  color: #007BFF;
+}
+a.add{
+  margin-left: 2%;
+}
