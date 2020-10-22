@@ -1,17 +1,18 @@
 <router-outlet></router-outlet>
 <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" [ngClass]="{ 'active':activeTab==='home'}" (click)="changeTab('home')" role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
+    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" [ngClass]="{ 'active':activeTab==='home'}" (click)="changeTab('home')" role="tab" aria-controls="pills-home" aria-selected="true" href="/home">Home</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" [ngClass]="{ 'active':activeTab==='profile'}" (click)="changeTab('profile')"  role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" [ngClass]="{ 'active':activeTab==='profile'}" (click)="changeTab('profile')"  role="tab" aria-controls="pills-profile" aria-selected="false" href="/tour-list">Tours</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" [ngClass]="{ 'active':activeTab==='contract'}" (click)="changeTab('contract')"  role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
+    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" [ngClass]="{ 'active':activeTab==='contract'}" (click)="changeTab('contract')"  role="tab" aria-controls="pills-contact" aria-selected="false" href="/user-list">Users</a>
   </li>
 </ul>
+
 <div class="tab-content" id="pills-tabContent">
   <div class="tab-pane fade show active" id="pills-home" [ngClass]="{ 'show active':activeTab==='home'}" role="tabpanel" aria-labelledby="pills-home-tab"><app-home></app-home></div>
   <div class="tab-pane fade" id="pills-profile" [ngClass]="{ 'show active':activeTab==='profile'}" role="tabpanel" aria-labelledby="pills-profile-tab"><app-tour-list></app-tour-list></div>
-  <div class="tab-pane fade" id="pills-contact" [ngClass]="{ 'show active':activeTab==='contract'}" role="tabpanel" aria-labelledby="pills-contact-tab">третья вкладка</div>
+  <div class="tab-pane fade" id="pills-contact" [ngClass]="{ 'show active':activeTab==='contract'}" role="tabpanel" aria-labelledby="pills-contact-tab"><app-user-list></app-user-list></div>
 </div>

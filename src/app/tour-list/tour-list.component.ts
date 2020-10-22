@@ -37,8 +37,8 @@ export class TourListComponent implements OnInit {
 
   createTour() {
     if (this.flagCreate){
-    this.service.createTour(this.tour).subscribe((data) => {
-      this.tour = data;
+      this.tour.id = null;
+      this.service.createTour(this.tour).subscribe((data) => {
       this.findTours();
     }, error => {
       this.error = error.message;
@@ -52,7 +52,6 @@ export class TourListComponent implements OnInit {
       console.log(error);
 
     });
-           this.flagCreate = true;
     }
     this.isShowTourForm = false;
   }
@@ -74,9 +73,9 @@ export class TourListComponent implements OnInit {
     this.flagCreate = false;
   }
 
-  kickFromTour(idT: string, idU: string) {
+  kickFromTour(u: User) {
     if (confirm('Вы действительно хотите удалить участника?')) {
-      this.service.deleteFromTour(idT, idU).subscribe((data) => {
+      this.service.deleteFromTour(u.idTour, u.id).subscribe((data) => {
         this.findTours();
       }, error => {
         this.error = error.message;
@@ -86,24 +85,27 @@ export class TourListComponent implements OnInit {
   }
 
   createUser() {
-    this.service.createUser(this.tourId, this.user).subscribe((data) => {
-      this.user = data;
+    this.user.idTour = this.tourId;
+    this.user.id = null;
+    this.service.createUser(this.user).subscribe((data) => {
       this.findTours();
       this.tourId = null;
       this.isUserFormShow = false;
     }, error => {
       this.error = error.message;
       console.log(error);
-
     });
   }
 
   createNew(id: string) {
     this.tourId = id;
     this.isUserFormShow = true;
+    this.user.number = '';
+    this.user.name = '';
   }
 
   addTour() {
     this.isShowTourForm = true;
+    this.flagCreate = true;
   }
 }

@@ -8,4 +8,5 @@ export class Tour {
   guide: string;
   members: User[];
   id: string;
+  avgAge: number;
 }

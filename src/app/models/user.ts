@@ -4,4 +4,6 @@ export class User {
   age: number;
   id: string;
   email: string;
+  idTour: string;
+  tourName: string;
 }

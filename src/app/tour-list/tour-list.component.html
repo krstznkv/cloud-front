@@ -19,7 +19,7 @@
   <div class="col-5">
     <div class="card card_member" *ngIf="tour.members.length>0">
   <div class="card-body" *ngFor="let user of tour.members;" >
-    <p>{{user.name}}  <a (click)="kickFromTour(tour.id,user.id)">kick</a></p>
+    <p>{{user.name}}  <a (click)="kickFromTour(user)">kick</a></p>
 
   </div>
     </div>

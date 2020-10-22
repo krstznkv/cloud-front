@@ -26,7 +26,19 @@ export class ApiService {
   deleteFromTour(idT: string, idU: string){
     return this.client.delete('http://localhost:8080/deleteFromTour/' + idT + '/' + idU);
   }
-  createUser(id: string, user: User){
-    return this.client.post<User>('http://localhost:8080/createUser/' + id, user);
+  createUser(user: User){
+    return this.client.post<User>('http://localhost:8080/createUser', user);
   }
+
+  findAllUsers() {
+    return this.client.get<User[]>('http://localhost:8080/findAllUsers');
+  }
+
+  updateUser(user: User){
+    return this.client.post('http://localhost:8080/updateUser', user);
+  }
+  deleteUser(id: string){
+    return this.client.delete('http://localhost:8080/deleteUser/' + id);
+  }
+
 }
