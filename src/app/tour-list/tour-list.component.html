@@ -1,5 +1,83 @@
 <div class="container">
-  <a href="#newTour" (click)="addTour()">Add tour</a>
+  <div class="user_wrap" [hidden]="!isUserFormShow">
+    <h2 class="text-center">Add member</h2>
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <form class="form-group" id="newUser">
+              <div class="form-group">
+                <label>Name :</label>
+                <input type="text" class="form-control" id="username" [(ngModel)]="user.name"
+                       name="name" >
+              </div>
+              <div class="form-group">
+                <label>Email:</label>
+                <input type="text" class="form-control" [(ngModel)]="user.email" id="email" name="email">
+              </div>
+              <div class="form-group">
+                <label>Age</label>
+                <input type="number" class="form-control" [(ngModel)]="user.age" id="age"
+                       name="age">
+              </div>
+              <div class="form-group">
+                <label>Number</label>
+                <input type="number" class="form-control" [(ngModel)]="user.number" id="number"
+                       name="number">
+              </div>
+              <button (click)=createUser() class="btn btn-success">OK</button>
+              <button (click)="cancelUser()" class="btn btn-danger btn_cancel">Cancel</button>
+            </form>
+            <p>{{error}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div  class="wrapp newTour" [hidden]="!isShowTourForm" id="newTour" >
+    <h3 class="text-center">Add new tour</h3>
+    <div class="row d-flex justify-content-center">
+
+      <div class="col-8" >
+        <div class="card" id="test">
+          <div class="card-body">
+            <form class="form-group" >
+              <div class="form-group">
+                <label>Name :</label>
+                <input type="text" class="form-control" id="name" [(ngModel)]="tour.name"
+                       name="name" >
+              </div>
+              <div class="form-group">
+                <label>Description:</label>
+                <textarea type="text" class="form-control" [(ngModel)]="tour.description" id="description" name="description"> </textarea>
+              </div>
+              <div class="form-group">
+                <label>Guide</label>
+                <input type="text" class="form-control" [(ngModel)]="tour.guide" id="guide"
+                       name="guide">
+              </div>
+              <div class="form-group">
+                <label>Price</label>
+                <input type="number" class="form-control" [(ngModel)]="tour.price" id="price"
+                       name="price">
+              </div>
+              <div class="form-group">
+                <label>Date</label>
+                <input type="date" class="form-control" [(ngModel)]="tour.date" id="date"
+                       name="date">
+              </div>
+              <button (click)=createTour() class="btn btn-success">OK</button>
+              <button (click)="cancelTour()" class="btn btn-danger btn_cancel">Cancel</button>
+              <button type="reset">Надпись на кнопке</button>
+            </form>
+            <p>{{error}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a [routerLink]="['/tour-list']" fragment="test" (click)="addTour()">Add tour</a>
 <div class="row tour_card d-flex " *ngFor="let tour of tours;">
 
   <div class="col-6" >
@@ -10,9 +88,9 @@
         <p>{{tour.guide}}</p>
         <p class="card-text">{{tour.description}}</p>
         <p><i>{{tour.price}}</i></p>
-        <a href="#newTour" class="card-link" (click)="updateClick(tour)">Change</a>
+        <a [routerLink]="['/tour-list']" fragment="test" class="card-link" (click)="updateClick(tour)">Change</a>
         <a  class="card-link" (click)="deleteTour(tour.id)">Delete </a>
-        <a href="#newUser" (click)="createNew(tour.id) " class="add"> Add member</a>
+        <a [routerLink]="['.']"  fragment='newUser' (click)="createNew(tour.id) " class="add"> Add member</a>
       </div>
     </div>
   </div>
@@ -25,78 +103,12 @@
     </div>
   </div>
 </div>
-  <div  class="wrapp" [hidden]="!isShowTourForm" id="newTour">
-  <h3 class="text-center">Add new tour</h3>
-  <div class="row d-flex justify-content-center">
+  <div *ngIf="modalFlag" class="modal_div text-center">
+    <p>Confirm action</p>
+    <div class="text-center">
+      <button class="btn-info" (click)="delete()">OK</button>
+      <button class="btn-danger btn_modal" (click)="cancelModal()">Cancel</button>
+    </div>
+  </div>
 
-<div class="col-8" >
-  <div class="card">
-    <div class="card-body">
-      <form class="form-group" >
-        <div class="form-group">
-          <label>Name :</label>
-          <input type="text" class="form-control" id="name" [(ngModel)]="tour.name"
-                name="name" >
-        </div>
-        <div class="form-group">
-          <label>Description:</label>
-          <textarea type="text" class="form-control" [(ngModel)]="tour.description" id="description" name="description"> </textarea>
-        </div>
-        <div class="form-group">
-          <label>Guide</label>
-          <input type="text" class="form-control" [(ngModel)]="tour.guide" id="guide"
-                 name="guide">
-        </div>
-        <div class="form-group">
-          <label>Price</label>
-          <input type="number" class="form-control" [(ngModel)]="tour.price" id="price"
-                 name="price">
-        </div>
-        <div class="form-group">
-          <label>Date</label>
-          <input type="date" class="form-control" [(ngModel)]="tour.date" id="date"
-                 name="date">
-        </div>
-        <button (click)=createTour() class="btn btn-success">OK</button>
-      </form>
-      <p>{{error}}</p>
-    </div>
-  </div>
-</div>
-  </div>
-  </div>
-  <div class="user_wrap" [hidden]="!isUserFormShow">
-    <h2 class="text-center">Add member</h2>
-  <div class="row justify-content-center">
-  <div class="col-6">
-    <div class="card">
-      <div class="card-body">
-        <form class="form-group" id="newUser">
-          <div class="form-group">
-            <label>Name :</label>
-            <input type="text" class="form-control" id="username" [(ngModel)]="user.name"
-                   name="name" >
-          </div>
-          <div class="form-group">
-            <label>Email:</label>
-            <input type="text" class="form-control" [(ngModel)]="user.email" id="email" name="email">
-          </div>
-          <div class="form-group">
-            <label>Age</label>
-            <input type="number" class="form-control" [(ngModel)]="user.age" id="age"
-                   name="age">
-          </div>
-          <div class="form-group">
-            <label>Number</label>
-            <input type="number" class="form-control" [(ngModel)]="user.number" id="number"
-                   name="number">
-          </div>
-          <button (click)=createUser() class="btn btn-success">OK</button>
-        </form>
-        <p>{{error}}</p>
-      </div>
-    </div>
-  </div>
-  </div>
-</div>
 </div>

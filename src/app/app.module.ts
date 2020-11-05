@@ -8,10 +8,11 @@ import {HttpClientModule} from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { TourListComponent } from './tour-list/tour-list.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { AppRoutingModule } from './app-routing.module';
 
 const routes: Routes = [
 
-  {path: 'home', component: HomeComponent},
+  {path: '', component: HomeComponent},
   {path: 'tour-list', component: TourListComponent},
   {path: 'user-list', component: UserListComponent}
 ];
@@ -27,7 +28,8 @@ const routes: Routes = [
     BrowserModule,
     [RouterModule.forRoot(routes)],
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

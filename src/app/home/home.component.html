@@ -6,7 +6,7 @@
     </div>
     <div class="card-body">
       <p class="card-text">{{tour.description}}</p>
-      <p>Average age:{{tour.avgAge}}</p>
+      <p *ngIf="tour.members.length>0">Average age:{{tour.avgAge}}</p>
       <a  (click)="changeButt(i)" *ngIf="tour.members.length>0">Members</a>
     </div>
     <div  [hidden]="!isShow[i]"  *ngFor="let user of tour.members; ">

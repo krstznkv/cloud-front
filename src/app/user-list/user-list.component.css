@@ -1,3 +1,25 @@
 .btn_delete{
   margin-left: 4%;
 }
+.btn_cancel{
+  margin-left: 20px;
+}
+a{
+  cursor: pointer;
+  color: dodgerblue;
+}
+.modal_div{
+  background-color: #87CEFA;
+  height: 100px;
+  width: 300px;
+  position: fixed;
+  top: 50%;
+  margin-top: -50px;
+  margin-left: -150px;
+  left: 50%;
+  border-radius: 3px;
+  border: black 2px solid;
+}
+.btn_modal{
+  margin-left: 5px;
+}

@@ -16,6 +16,8 @@ export class UserListComponent implements OnInit {
   isUserFormShow: boolean;
   isCreate: boolean;
   tours = {} as Tour[];
+  modalFlag: boolean;
+  idDelete;
   constructor(private service: ApiService) { }
 
   ngOnInit(): void {
@@ -71,22 +73,41 @@ export class UserListComponent implements OnInit {
   changeButt() {
     this.isUserFormShow = true;
     this.isCreate = true;
+    this.user.number = '';
+    this.user.name = '';
+    this.user.age = null;
+    this.user.email = '';
+    window.scroll(0, 0);
   }
 
   updateClick(u: User) {
     this.isCreate = false;
     this.user = u;
     this.isUserFormShow = true;
+    window.scroll(0, 0);
   }
-  delete(id: string){
-    if (confirm('Вы действительно хотите удалить участника?')) {
-      this.service.deleteUser(id).subscribe((data) => {
+  delete(){
+    this.service.deleteUser(this.idDelete).subscribe((data) => {
         this.findUsers();
       }, error => {
         this.error = error.message;
         console.log(error);
 
       });
-    }
+    this.modalFlag = false;
+  }
+
+  cancel() {
+    this.isUserFormShow = false;
+  }
+
+  cancelModal() {
+    this.modalFlag = false;
+    this.idDelete = null;
+  }
+
+  deleteUser(id: string) {
+    this.idDelete = id;
+    this.modalFlag = true;
   }
 }
