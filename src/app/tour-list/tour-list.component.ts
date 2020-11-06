@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../api.service';
 import {Tour} from '../models/tour';
 import {User} from '../models/user';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {ViewportScroller} from '@angular/common';
-
+import { NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-tour-list',
@@ -22,6 +21,7 @@ export class TourListComponent implements OnInit {
   user = {} as User;
   tourId: string;
   modalFlag: boolean;
+  today= Date.now();
   constructor(private service: ApiService, private viewScroller: ViewportScroller) {
 
   }
@@ -40,25 +40,24 @@ export class TourListComponent implements OnInit {
     });
   }
 
-  createTour() {
+  createTour(form: NgForm) {
     if (this.flagCreate){
       this.tour.id = null;
       this.service.createTour(this.tour).subscribe((data) => {
       this.findTours();
     }, error => {
-      this.error = error.message;
+      this.error = 'Tour with this name exist';
       console.log(error);
 
     }); }
     else { this.service.updateTour(this.tour).subscribe((data) => {
       this.findTours();
     }, error => {
-      this.error = error.message;
+      this.error = 'Tour with this name exist';
       console.log(error);
 
     });
     }
-    this.tour = null;
     this.isShowTourForm = false;
   }
 
@@ -74,20 +73,20 @@ export class TourListComponent implements OnInit {
   }
   updateClick(t: Tour) {
     this.isShowTourForm = true;
-    this.tour = t;
+    this.tour = new Tour(t);
     this.flagCreate = false;
     window.scroll(0, 0);
   }
 
   kickFromTour(u: User) {
-    if (confirm('Вы действительно хотите удалить участника?')) {
+
       this.service.deleteFromTour(u.idTour, u.id).subscribe((data) => {
         this.findTours();
       }, error => {
         this.error = error.message;
         console.log(error);
       });
-    }
+
   }
 
   createUser() {
@@ -98,7 +97,7 @@ export class TourListComponent implements OnInit {
       this.tourId = null;
       this.isUserFormShow = false;
     }, error => {
-      this.error = error.message;
+      this.error = 'Tour with this name exist';
       console.log(error);
     });
   }
@@ -106,27 +105,20 @@ export class TourListComponent implements OnInit {
   createNew(id: string) {
     this.tourId = id;
     this.isUserFormShow = true;
-    this.user.number = '';
-    this.user.name = '';
-    this.user.age = null;
-    this.user.email = '';
     window.scroll(0, 0);
   }
 
-  addTour() {
+  addTour(tourForm: NgForm) {
     this.isShowTourForm = true;
     this.flagCreate = true;
-    this.tour.guide = '';
-    this.tour.price = 0;
-    this.tour.description = '';
-    this.tour.name = '';
-  }
+    tourForm.resetForm();
+ }
 
   cancelUser() {
     this.isUserFormShow = false;
   }
 
-  cancelTour() {
+  cancelTour(form: NgForm) {
     this.isShowTourForm = false;
   }
   cancelModal() {

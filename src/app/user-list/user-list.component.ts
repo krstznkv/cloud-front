@@ -3,7 +3,7 @@ import {ApiService} from '../api.service';
 import {User} from '../models/user';
 import {Tour} from '../models/tour';
 import {element} from 'protractor';
-
+import { NgForm} from '@angular/forms';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -52,7 +52,7 @@ export class UserListComponent implements OnInit {
       this.isUserFormShow = false;
       this.findUsers();
     }, error => {
-      this.error = error.message;
+      this.error = 'Tour with this name exist';
       console.log(error);
     });
     }
@@ -63,26 +63,23 @@ export class UserListComponent implements OnInit {
         this.isUserFormShow = false;
         this.findUsers();
       }, error => {
-        this.error = error.message;
+        this.error = 'Tour with this name exist';
         console.log(error);
       });
     }
 
   }
 
-  changeButt() {
+  changeButt(userForm: NgForm) {
     this.isUserFormShow = true;
     this.isCreate = true;
-    this.user.number = '';
-    this.user.name = '';
-    this.user.age = null;
-    this.user.email = '';
+    userForm.resetForm();
     window.scroll(0, 0);
   }
 
   updateClick(u: User) {
     this.isCreate = false;
-    this.user = u;
+    this.user = new User(u);
     this.isUserFormShow = true;
     window.scroll(0, 0);
   }
@@ -97,8 +94,9 @@ export class UserListComponent implements OnInit {
     this.modalFlag = false;
   }
 
-  cancel() {
+  cancel(userForm: NgForm) {
     this.isUserFormShow = false;
+    userForm.resetForm();
   }
 
   cancelModal() {

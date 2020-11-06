@@ -9,24 +9,25 @@
               <div class="form-group">
                 <label>Name :</label>
                 <input type="text" class="form-control" id="username" [(ngModel)]="user.name"
-                       name="name" >
+                       #name="ngModel"  name="name" required>
               </div>
               <div class="form-group">
                 <label>Email:</label>
-                <input type="text" class="form-control" [(ngModel)]="user.email" id="email" name="email">
+                <input type="email" class="form-control" #email="ngModel" [(ngModel)]="user.email" id="email" name="email" required email>
               </div>
               <div class="form-group">
                 <label>Age</label>
-                <input type="number" class="form-control" [(ngModel)]="user.age" id="age"
-                       name="age">
+                <input type="number" class="form-control"  #age="ngModel" [(ngModel)]="user.age" id="age"
+                       name="age" required min="14" max="100">
               </div>
               <div class="form-group">
                 <label>Number</label>
-                <input type="number" class="form-control" [(ngModel)]="user.number" id="number"
-                       name="number">
+                <input type="tel" class="form-control" #number="ngModel" [(ngModel)]="user.number" id="number"
+                       name="number" required pattern="[0-9]{11}">
               </div>
-              <button (click)=createUser() class="btn btn-success">OK</button>
+              <button [disabled]="name.invalid || email.invalid || number.invalid||age.invalid"(click)=createUser() class="btn btn-success">OK</button>
               <button (click)="cancelUser()" class="btn btn-danger btn_cancel">Cancel</button>
+              <button type="reset" class="btn btn-info btn_reset">Reset</button>
             </form>
             <p>{{error}}</p>
           </div>
@@ -41,34 +42,34 @@
       <div class="col-8" >
         <div class="card" id="test">
           <div class="card-body">
-            <form class="form-group" >
+            <form class="form-group" #tourForm="ngForm" >
               <div class="form-group">
                 <label>Name :</label>
                 <input type="text" class="form-control" id="name" [(ngModel)]="tour.name"
-                       name="name" >
+                       name="name"  #nameTour="ngModel" required/>
               </div>
               <div class="form-group">
                 <label>Description:</label>
-                <textarea type="text" class="form-control" [(ngModel)]="tour.description" id="description" name="description"> </textarea>
+                <textarea type="text" class="form-control" [(ngModel)]="tour.description" id="description"  #description="ngModel"  name="description" > </textarea>
               </div>
               <div class="form-group">
                 <label>Guide</label>
                 <input type="text" class="form-control" [(ngModel)]="tour.guide" id="guide"
-                       name="guide">
+                       #guid="ngModel"  name="guide" required>
               </div>
               <div class="form-group">
                 <label>Price</label>
                 <input type="number" class="form-control" [(ngModel)]="tour.price" id="price"
-                       name="price">
+                      #price="ngModel" name="price" min="100" required>
               </div>
               <div class="form-group">
                 <label>Date</label>
                 <input type="date" class="form-control" [(ngModel)]="tour.date" id="date"
-                       name="date">
+                       #date="ngModel" min="{{today | date:'yyyy-MM-dd'}}" name="date" required>
               </div>
-              <button (click)=createTour() class="btn btn-success">OK</button>
-              <button (click)="cancelTour()" class="btn btn-danger btn_cancel">Cancel</button>
-              <button type="reset">Надпись на кнопке</button>
+              <button [disabled]="nameTour.invalid || date.invalid||price.invalid||guid.invalid" (click)=createTour(tourForm) class="btn btn-success">OK</button>
+              <button (click)="cancelTour(tourForm)" class="btn btn-danger btn_cancel">Cancel</button>
+              <button type="reset" class="btn btn-info btn_reset">Reset</button>
             </form>
             <p>{{error}}</p>
           </div>
@@ -77,7 +78,7 @@
     </div>
   </div>
 
-  <a [routerLink]="['/tour-list']" fragment="test" (click)="addTour()">Add tour</a>
+  <a  (click)="addTour(tourForm)">Add tour</a>
 <div class="row tour_card d-flex " *ngFor="let tour of tours;">
 
   <div class="col-6" >
@@ -88,9 +89,9 @@
         <p>{{tour.guide}}</p>
         <p class="card-text">{{tour.description}}</p>
         <p><i>{{tour.price}}</i></p>
-        <a [routerLink]="['/tour-list']" fragment="test" class="card-link" (click)="updateClick(tour)">Change</a>
+        <a  class="card-link" (click)="updateClick(tour)">Change</a>
         <a  class="card-link" (click)="deleteTour(tour.id)">Delete </a>
-        <a [routerLink]="['.']"  fragment='newUser' (click)="createNew(tour.id) " class="add"> Add member</a>
+        <a  (click)="createNew(tour.id) " class="add"> Add member</a>
       </div>
     </div>
   </div>

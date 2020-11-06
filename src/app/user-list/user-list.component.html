@@ -5,34 +5,35 @@
       <div class="col-6">
         <div class="card">
           <div class="card-body">
-            <form class="form-group" id="newUser">
+            <form class="form-group" id="newUser" #userForm="ngForm" novalidate>
               <div class="form-group">
                 <label>Name :</label>
                 <input type="text" class="form-control" id="username" [(ngModel)]="user.name"
-                       name="name" >
+                       #name="ngModel" name="name" required/>
               </div>
               <div class="form-group">
                 <label>Email:</label>
-                <input type="text" class="form-control" [(ngModel)]="user.email" id="email" name="email">
+                <input type="email" class="form-control" [(ngModel)]="user.email" #email="ngModel" id="email" name="email" required email/>
               </div>
               <div class="form-group">
                 <label>Age</label>
-                <input type="number" class="form-control" [(ngModel)]="user.age" id="age"
-                       name="age">
+                <input type="number" class="form-control" [(ngModel)]="user.age" #age="ngModel" id="age"
+                       name="age" required/>
               </div>
               <div class="form-group">
                 <label>Number</label>
-                <input type="text" class="form-control" [(ngModel)]="user.number" id="number"
-                       name="number">
+                <input type="tel" class="form-control" [(ngModel)]="user.number" #number="ngModel" id="number"
+                       name="number" required pattern="[0-9]{11}"/>
               </div>
               <div class="form-group">
                 <label>Tour</label>
-                <select class="form-control" [(ngModel)]="user.idTour" name="idTour" id="idTour">
+                <select class="form-control" [(ngModel)]="user.idTour" #tour="ngModel" name="idTour" id="idTour" required>
                   <option *ngFor="let tour of tours"  value="{{tour.id}}">{{tour.name}}</option>
                 </select>
               </div>
-              <button (click)=createUser() class="btn btn-success">OK</button>
-              <button (click)="cancel()" class="btn btn-danger btn_cancel">Cancel</button>
+              <button [disabled]="name.invalid || email.invalid || number.invalid||tour.invalid||age.invalid" (click)=createUser() class="btn btn-success">OK</button>
+              <button (click)="cancel(userForm)" class="btn btn-danger btn_cancel">Cancel</button>
+              <button type="reset" class="btn btn-info btn_reset">Reset</button>
             </form>
             <p>{{error}}</p>
           </div>
@@ -40,7 +41,7 @@
       </div>
     </div>
   </div>
-  <a (click)="changeButt()">Add new user</a>
+  <a (click)="changeButt(userForm)">Add new user</a>
   <div class="row" >
     <table class="table">
       <thead>

@@ -1,7 +1,7 @@
 .btn_delete{
   margin-left: 4%;
 }
-.btn_cancel{
+.btn_cancel,.btn_reset{
   margin-left: 20px;
 }
 a{
@@ -23,3 +23,5 @@ a{
 .btn_modal{
   margin-left: 5px;
 }
+input.ng-touched.ng-invalid {border:solid red 2px;}
+input.ng-touched.ng-valid {border:solid green 2px;}
